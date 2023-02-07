@@ -1,7 +1,7 @@
 {
   "name": "@vintners/react-form-chakra-fields",
   "license": "MIT",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "private": false,
   "description": "Reusable, boilerplate free and auto validating react forms with chakra-ui and react-select built-in support",
   "author": "Bogdan Stefanescu",
@@ -26,10 +26,10 @@
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
-    "@chakra-ui/react": "^2.4.9",
-    "react": "^18.2.0 || ^17.0.2",
-    "react-dom": "^18.2.0 || ^17.0.2",
-    "@vintners/react-form": "0.9.0"
+    "@chakra-ui/react": "^2.0.0 || ^1.0.0",
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0",
+    "@vintners/react-form": "0.9.1"
   },
   "devDependencies": {
     "@chakra-ui/react": "^2.4.9",
