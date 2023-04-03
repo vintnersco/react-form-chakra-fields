@@ -1,9 +1,9 @@
-import ReactSelect from 'react-select';
-import { Box, Checkbox, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, Select, Spacer, Stack, StackProps, Switch, Textarea } from "@chakra-ui/react";
-import React, { ReactElement, ReactNode } from "react";
+import { Box, Checkbox, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, Select, Stack, StackProps, Switch, Textarea } from "@chakra-ui/react";
 import { FieldComponentProps } from "@vintners/react-form";
+import { ReactElement, ReactNode } from "react";
+import ReactSelect from 'react-select';
 
-function ChakraField({ id, label, help, error, isReadOnly, isRequired, isDisabled, isHorizontal, helpAlignment, children }: {
+export function ChakraField({ id, label, help, error, isReadOnly, isRequired, isDisabled, isHorizontal, helpAlignment, children }: {
     isReadOnly?: boolean,
     isDisabled?: boolean,
     isRequired?: boolean,
