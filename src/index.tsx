@@ -1,6 +1,6 @@
 import { Box, Checkbox, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, Select, Stack, StackProps, Switch, Textarea } from "@chakra-ui/react";
 import { FieldComponentProps } from "@vintners/react-form";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import ReactSelect from 'react-select';
 
 export function ChakraField({ id, label, help, error, isReadOnly, isRequired, isDisabled, isHorizontal, helpAlignment, children }: {
@@ -18,7 +18,7 @@ export function ChakraField({ id, label, help, error, isReadOnly, isRequired, is
     let labelProps: any, fieldProps: any;
     if (isHorizontal) {
         labelProps = { md: 0, pr: 2 };
-        fieldProps = { display: 'flex', aligItems: 'center', justifyContent: 'start' };
+        fieldProps = { display: 'flex', alignItems: 'center', justifyContent: 'start' };
     }
     const helpOnTop = helpAlignment === 'top';
     return (
@@ -59,15 +59,24 @@ export const DateField = createInputField('date', (date) => date ? date.toISOStr
 
 export function createNumberField({ step }: { step?: number }) {
     return function NumberField({ id, name, value, onChange, onBlur, placeholder, autoComplete, ...others }: FieldComponentProps) {
+        const [negate, setNegate] = useState('');
+        const _onChange = (value: string, num: number) => {
+            if (value === '-') {
+                setNegate('-');
+            } else if (negate) {
+                setNegate('');
+            }
+            onChange(isNaN(num) ? null : num)
+        }
         return (
             <ChakraField id={id}  {...others}>
                 <NumberInput
                     id={id}
                     step={!step ? undefined : step}
-                    onChange={onChange}
+                    onChange={_onChange}
                     onBlur={onBlur}
                     name={name}
-                    value={value || ''}
+                    value={value || negate}
                 >
                     <NumberInputField
                         placeholder={placeholder}
@@ -189,8 +198,8 @@ export function SelectField({ id, name, value, onChange, onBlur, placeholder, au
     )
 }
 
-function createRadioFroupField(stackProps?: StackProps) {
-    return function RadioGroupField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, isRequired, ...others }: FieldComponentProps) {
+export function createRadioGroupField(stackProps?: StackProps) {
+    return function RadioGroupField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, ...others }: FieldComponentProps) {
         return (
             <ChakraField id={id} {...others}>
                 <RadioGroup id={id} name={name} value={value} onChange={onChange} onBlur={onBlur}>
@@ -205,13 +214,13 @@ function createRadioFroupField(stackProps?: StackProps) {
     }
 }
 
-export const RadioGroupField = createRadioFroupField();
-export const InlineRadioGroupField = createRadioFroupField({ direction: 'row' });
+export const RadioGroupField = createRadioGroupField();
+export const InlineRadioGroupField = createRadioGroupField({ direction: 'row' });
 
 export function createSelectField({ isClearable }: {
     isClearable?: true
 }) {
-    return function ReactSelectField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, isRequired, ...others }: FieldComponentProps) {
+    return function ReactSelectField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, ...others }: FieldComponentProps) {
         const _onChange = (item: { value: string, label: string } | null) => {
             onChange(item ? item.value : null);
         }
@@ -235,7 +244,7 @@ export function createSelectField({ isClearable }: {
 export function createMultiSelectField({ isClearable }: {
     isClearable?: true
 }) {
-    return function ReactSelectField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, isRequired, ...others }: FieldComponentProps) {
+    return function ReactSelectField({ id, name, value, onChange, onBlur, placeholder, autoComplete, options, ...others }: FieldComponentProps) {
         if (!value) {
             value = [];
         }
